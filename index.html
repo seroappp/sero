@@ -2,277 +2,247 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#6d28d9">
 <title>SERO AI</title>
-
 <style>
 *{box-sizing:border-box}
+:root{
+  --bg:#f7f7fb;--card:#fff;--text:#17151f;--muted:#777181;
+  --purple:#6d28d9;--purple2:#9b5cff;--border:#ebe8f1;
+}
+body.dark{
+  --bg:#0e0d13;--card:#19171f;--text:#f7f4ff;--muted:#aaa3b4;
+  --border:#2a2732;
+}
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:linear-gradient(135deg,#4338ca,#7c3aed);
-  color:white;
-  min-height:100vh;
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  transition:.25s;
 }
-.screen{
-  min-height:100vh;
-  display:none;
-  padding:24px;
-}
-.screen.active{
-  display:flex;
-}
-#welcome{
-  justify-content:center;
-  align-items:center;
-}
-.card{
-  width:100%;
-  max-width:390px;
-  padding:34px 24px;
-  text-align:center;
-  border-radius:28px;
-  background:rgba(255,255,255,.14);
-  backdrop-filter:blur(14px);
-  box-shadow:0 18px 45px rgba(0,0,0,.25);
-}
+button,input,select{font:inherit}
+.app{max-width:720px;margin:auto;padding:18px 16px 105px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}
+.brand{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:900}
 .logo{
-  font-size:42px;
-  font-weight:800;
-  margin-bottom:12px;
+  width:42px;height:42px;border-radius:15px;display:grid;place-items:center;
+  color:white;background:linear-gradient(135deg,#5b21b6,#b76cff);
+  box-shadow:0 12px 30px #7c3aed45
 }
-.subtitle{
-  font-size:18px;
-  opacity:.9;
-  margin-bottom:28px;
+.actions{display:flex;gap:8px;align-items:center}
+.icon-btn,.language{
+  border:1px solid var(--border);background:var(--card);color:var(--text);
+  min-height:42px;border-radius:14px;padding:0 12px
 }
-.main-btn{
-  border:0;
-  border-radius:16px;
-  padding:15px 32px;
-  font-size:18px;
-  font-weight:bold;
-  background:white;
-  color:#5b21b6;
+.avatar{
+  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(135deg,#111,#6d28d9);color:white;font-weight:800
 }
-#language{
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+h1{font-size:29px;margin:0 0 8px;letter-spacing:-.7px}
+.subtitle{color:var(--muted);margin-bottom:20px}
+.askbox{
+  background:var(--card);border:1px solid var(--border);border-radius:24px;
+  padding:16px;box-shadow:0 15px 45px #261a4310;margin-bottom:14px
 }
-.language-title{
-  font-size:30px;
-  font-weight:800;
-  margin-bottom:24px;
-  text-align:center;
+.askrow{display:flex;gap:10px}
+.askrow input{
+  min-width:0;flex:1;border:0;outline:0;background:transparent;
+  color:var(--text);font-size:16px
 }
-.languages{
-  width:100%;
-  max-width:390px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+.send{
+  border:0;width:45px;height:45px;border-radius:15px;color:white;
+  background:linear-gradient(135deg,var(--purple),var(--purple2))
 }
-.lang-btn{
-  border:1px solid rgba(255,255,255,.25);
-  border-radius:18px;
-  padding:18px 10px;
-  background:rgba(255,255,255,.14);
-  color:white;
-  font-size:17px;
-  font-weight:bold;
+.attachments{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.chip{
+  border:1px solid var(--border);background:var(--bg);color:var(--text);
+  border-radius:13px;padding:9px 11px;font-size:13px
 }
-#chat{
-  flex-direction:column;
-  padding:0;
-  background:#f4f5f7;
-  color:#111827;
+.voice{
+  position:relative;overflow:hidden;padding:22px;border-radius:27px;color:white;
+  background:linear-gradient(135deg,#351376,#6d28d9 58%,#b15cff);
+  box-shadow:0 20px 45px #6d28d940;margin:18px 0 25px
 }
-.header{
-  padding:17px 18px;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid #e5e7eb;
+.voice:after{
+  content:"";position:absolute;width:190px;height:190px;border-radius:50%;
+  background:#fff1;right:-65px;top:-70px
 }
-.header-title{
-  font-size:21px;
-  font-weight:800;
+.voice-top{display:flex;align-items:center;gap:15px;position:relative;z-index:1}
+.mic{
+  width:68px;height:68px;border-radius:22px;background:#ffffff20;
+  display:grid;place-items:center;font-size:32px;animation:pulse 2s infinite
 }
-.header button{
-  border:0;
-  background:#ede9fe;
-  padding:9px 12px;
-  border-radius:12px;
+@keyframes pulse{50%{transform:scale(1.07);box-shadow:0 0 0 12px #ffffff0b}}
+.voice h2{margin:0 0 6px;font-size:23px}
+.voice p{margin:0;color:#eee7ff}
+.voice-buttons{display:flex;gap:10px;margin-top:18px;position:relative;z-index:1}
+.primary,.secondary{
+  border:0;border-radius:14px;padding:12px 15px;font-weight:700
 }
-.messages{
-  flex:1;
-  padding:20px 14px 110px;
-  overflow:auto;
+.primary{background:white;color:#54209f}
+.secondary{background:#ffffff18;color:white;border:1px solid #ffffff28}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:24px 2px 13px}
+.section-head h3{margin:0;font-size:19px}
+.link{border:0;background:none;color:var(--purple);font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.tool{
+  text-align:left;border:1px solid var(--border);background:var(--card);
+  color:var(--text);border-radius:20px;padding:16px;min-height:126px
 }
-.message{
-  max-width:82%;
-  margin-bottom:12px;
-  padding:13px 15px;
-  border-radius:18px;
-  line-height:1.4;
+.tool-icon{
+  width:43px;height:43px;border-radius:14px;display:grid;place-items:center;
+  font-size:21px;background:#7c3aed14;margin-bottom:16px
 }
-.bot{
-  background:white;
-  border:1px solid #e5e7eb;
+.tool strong{display:block;margin-bottom:5px}
+.tool small{color:var(--muted);line-height:1.35}
+.pro-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.plan{
+  border:1px solid var(--border);background:var(--card);border-radius:21px;padding:17px
 }
-.user{
-  margin-left:auto;
-  background:#6d28d9;
-  color:white;
+.plan.pro{background:linear-gradient(145deg,#1e1237,#6d28d9);color:white}
+.plan p{color:var(--muted);font-size:13px;min-height:38px}
+.plan.pro p{color:#ddd3f4}
+.plan button{
+  width:100%;border:0;border-radius:13px;padding:11px;font-weight:800;
+  background:#eee8ff;color:#5b21b6
 }
-.composer{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  padding:12px;
-  display:flex;
-  gap:8px;
-  background:white;
-  border-top:1px solid #e5e7eb;
+.empty{
+  background:var(--card);border:1px dashed var(--border);border-radius:20px;
+  color:var(--muted);padding:22px;text-align:center
 }
-.composer input{
-  flex:1;
-  padding:14px;
-  border:1px solid #d1d5db;
-  border-radius:16px;
-  font-size:16px;
+.nav{
+  position:fixed;left:50%;bottom:0;transform:translateX(-50%);
+  width:min(720px,100%);height:82px;background:color-mix(in srgb,var(--card) 92%,transparent);
+  backdrop-filter:blur(18px);border-top:1px solid var(--border);
+  display:flex;justify-content:space-around;align-items:center;padding-bottom:8px;z-index:10
 }
-.composer button{
-  border:0;
-  border-radius:16px;
-  padding:0 17px;
-  background:#6d28d9;
-  color:white;
-  font-size:20px;
+.nav button{border:0;background:none;color:var(--muted);font-size:12px}
+.nav button span{display:block;font-size:21px;margin-bottom:4px}
+.nav .active{color:var(--purple);font-weight:800}
+.nav .voice-nav{
+  width:58px;height:58px;border-radius:20px;color:white;margin-top:-27px;
+  background:linear-gradient(135deg,#5b21b6,#a855f7);
+  box-shadow:0 10px 28px #6d28d950;font-size:25px
 }
+@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
-
 <body>
+<main class="app">
+  <header class="topbar">
+    <div class="brand"><div class="logo">S</div>SERO AI</div>
+    <div class="actions">
+      <select id="language" class="language" onchange="changeLanguage(this.value)">
+        <option value="az">AZ</option>
+        <option value="ru">RU</option>
+        <option value="tr">TR</option>
+        <option value="en">EN</option>
+        <option value="uz">UZ</option>
+        <option value="tg">TG</option>
+        <option value="ky">KY</option>
+      </select>
+      <button class="icon-btn" onclick="toggleTheme()">◐</button>
+      <div class="avatar">S</div>
+    </div>
+  </header>
 
-<section id="welcome" class="screen active">
-  <div class="card">
-    <div class="logo">🤖 SERO AI</div>
-    <div class="subtitle">Ağıllı köməkçiniz</div>
-    <button class="main-btn" onclick="showLanguages()">Başla</button>
-  </div>
-</section>
+  <h1 id="hello">Salam, Sədi!</h1>
+  <div id="subtitle" class="subtitle">Bu gün sizə necə kömək edə bilərəm?</div>
 
-<section id="language" class="screen">
-  <div class="language-title">Dili seçin</div>
+  <section class="askbox">
+    <div class="askrow">
+      <input id="askInput" placeholder="SERO-dan istədiyini soruş...">
+      <button class="send" onclick="sendMessage()">➤</button>
+    </div>
+    <div class="attachments">
+      <button class="chip">📷 Kamera</button>
+      <button class="chip">🖼️ Qalereya</button>
+      <button class="chip">📄 PDF</button>
+      <button class="chip">🎤 Mikrofon</button>
+    </div>
+  </section>
 
-  <div class="languages">
-    <button class="lang-btn" onclick="openChat('az')">🇦🇿 Azərbaycan</button>
-    <button class="lang-btn" onclick="openChat('ru')">🇷🇺 Русский</button>
-    <button class="lang-btn" onclick="openChat('tr')">🇹🇷 Türkçe</button>
-    <button class="lang-btn" onclick="openChat('en')">🇬🇧 English</button>
-    <button class="lang-btn" onclick="openChat('uz')">🇺🇿 O‘zbekcha</button>
-    <button class="lang-btn" onclick="openChat('tg')">🇹🇯 Тоҷикӣ</button>
-  </div>
-</section>
+  <section class="voice">
+    <div class="voice-top">
+      <div class="mic">🎙️</div>
+      <div>
+        <h2 id="voiceTitle">SERO ilə danış</h2>
+        <p id="voiceText">Sual ver, cavab al və təbii söhbət et.</p>
+      </div>
+    </div>
+    <div class="voice-buttons">
+      <button id="startVoice" class="primary" onclick="startVoice()">Danışmağa başla</button>
+      <button class="secondary" onclick="focusChat()">Mətnlə davam et</button>
+    </div>
+  </section>
 
-<section id="chat" class="screen">
-  <div class="header">
-    <div class="header-title">🤖 SERO AI</div>
-    <button onclick="showLanguages()">🌍 Dil</button>
-  </div>
+  <div class="section-head"><h3 id="mainTools">Əsas alətlər</h3><button class="link">Hamısını gör</button></div>
+  <section class="grid">
+    <button class="tool"><div class="tool-icon">💬</div><strong>AI Çat</strong><small>SERO ilə ağıllı söhbət et</small></button>
+    <button class="tool"><div class="tool-icon">🎓</div><strong>Məktəb köməkçisi</strong><small>Dərsləri öyrən və tapşırıqları həll et</small></button>
+    <button class="tool"><div class="tool-icon">🖼️</div><strong>Şəkil yarat</strong><small>Mətndən unikal şəkillər hazırla</small></button>
+    <button class="tool"><div class="tool-icon">📄</div><strong>PDF analiz</strong><small>Sənədləri oxu və sual ver</small></button>
+    <button class="tool"><div class="tool-icon">🌍</div><strong>Tərcüməçi</strong><small>Mətnləri anında tərcümə et</small></button>
+    <button class="tool"><div class="tool-icon">📷</div><strong>Şəkil analizi</strong><small>Şəkildə olanları SERO izah etsin</small></button>
+  </section>
 
-  <div id="messages" class="messages"></div>
+  <div class="section-head"><h3>Bütün alətlər</h3><button class="link">Hamısını gör</button></div>
+  <section class="grid">
+    <button class="tool"><div class="tool-icon">🩺</div><strong>AI Sağlamlıq</strong><small>Ümumi sağlamlıq məlumatları</small></button>
+    <button class="tool"><div class="tool-icon">⚖️</div><strong>Hüquq</strong><small>Hüquqi məlumat və sənədlər</small></button>
+    <button class="tool"><div class="tool-icon">💼</div><strong>İş və CV</strong><small>CV və müraciət məktubları</small></button>
+    <button class="tool"><div class="tool-icon">💰</div><strong>Maliyyə</strong><small>Büdcə və maliyyə köməkçisi</small></button>
+    <button class="tool"><div class="tool-icon">✈️</div><strong>Səyahət</strong><small>Səyahət planı və ideyalar</small></button>
+    <button class="tool"><div class="tool-icon">🛍️</div><strong>SERO Market</strong><small>AI xidmətləri və imkanları</small></button>
+  </section>
 
-  <div class="composer">
-    <input id="messageInput" placeholder="Mesajınızı yazın...">
-    <button onclick="sendMessage()">➤</button>
-  </div>
-</section>
+  <div class="section-head"><h3>Son söhbətlər</h3><button class="link">Hamısını gör</button></div>
+  <div id="recent" class="empty">Hələ söhbət yoxdur</div>
+
+  <div class="section-head"><h3>SERO planları</h3></div>
+  <section class="pro-grid">
+    <div class="plan"><strong>SERO Plus</strong><p>Sürətli cavablar və daha çox limit</p><button>Yüksəlt</button></div>
+    <div class="plan pro"><strong>SERO Pro</strong><p>Bütün funksiyalar və prioritet dəstək</p><button>Pro-ya keç</button></div>
+  </section>
+</main>
+
+<nav class="nav">
+  <button class="active"><span>⌂</span>Ana səhifə</button>
+  <button><span>💬</span>Söhbətlər</button>
+  <button class="voice-nav" onclick="startVoice()">🎙️</button>
+  <button><span>▦</span>Alətlər</button>
+  <button><span>◉</span>Profil</button>
+</nav>
 
 <script>
-let selectedLanguage="az";
-
 const translations={
-  az:{
-    welcome:"Salam! Mən SERO AI-yam. Sizə necə kömək edim?",
-    placeholder:"Mesajınızı yazın...",
-    demo:"Bu hələ sınaq versiyasıdır. Həqiqi AI bağlantısını növbəti mərhələdə əlavə edəcəyik."
-  },
-  ru:{
-    welcome:"Здравствуйте! Я SERO AI. Чем могу помочь?",
-    placeholder:"Напишите сообщение...",
-    demo:"Это пока тестовая версия. Настоящий ИИ мы подключим на следующем этапе."
-  },
-  tr:{
-    welcome:"Merhaba! Ben SERO AI. Size nasıl yardımcı olabilirim?",
-    placeholder:"Mesajınızı yazın...",
-    demo:"Bu şimdilik deneme sürümüdür. Gerçek yapay zekâyı sonraki aşamada bağlayacağız."
-  },
-  en:{
-    welcome:"Hello! I am SERO AI. How can I help you?",
-    placeholder:"Write a message...",
-    demo:"This is currently a demo. We will connect the real AI in the next stage."
-  },
-  uz:{
-    welcome:"Salom! Men SERO AI. Sizga qanday yordam beray?",
-    placeholder:"Xabaringizni yozing...",
-    demo:"Bu hozircha sinov versiyasi. Haqiqiy AI keyingi bosqichda ulanadi."
-  },
-  tg:{
-    welcome:"Салом! Ман SERO AI ҳастам. Чӣ гуна кумак кунам?",
-    placeholder:"Паёми худро нависед...",
-    demo:"Ин ҳоло версияи санҷишӣ аст. AI-и воқеӣ дар марҳилаи баъдӣ пайваст мешавад."
-  }
+ az:{hello:"Salam, Sədi!",subtitle:"Bu gün sizə necə kömək edə bilərəm?",ask:"SERO-dan istədiyini soruş...",voiceTitle:"SERO ilə danış",voiceText:"Sual ver, cavab al və təbii söhbət et.",start:"Danışmağa başla",tools:"Əsas alətlər"},
+ ru:{hello:"Привет, Седи!",subtitle:"Чем я могу помочь вам сегодня?",ask:"Спросите SERO о чём угодно...",voiceTitle:"Поговорите с SERO",voiceText:"Задавайте вопросы и общайтесь естественно.",start:"Начать разговор",tools:"Основные инструменты"},
+ tr:{hello:"Merhaba, Sədi!",subtitle:"Bugün size nasıl yardımcı olabilirim?",ask:"SERO'ya istediğini sor...",voiceTitle:"SERO ile konuş",voiceText:"Sor, cevap al ve doğal sohbet et.",start:"Konuşmaya başla",tools:"Ana araçlar"},
+ en:{hello:"Hello, Sədi!",subtitle:"How can I help you today?",ask:"Ask SERO anything...",voiceTitle:"Talk to SERO",voiceText:"Ask questions and have a natural conversation.",start:"Start talking",tools:"Main tools"}
 };
-
-function changeScreen(id){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+function changeLanguage(lang){
+ const t=translations[lang]||translations.az;
+ hello.textContent=t.hello;subtitle.textContent=t.subtitle;
+ askInput.placeholder=t.ask;voiceTitle.textContent=t.voiceTitle;
+ voiceText.textContent=t.voiceText;startVoice.textContent=t.start;
+ mainTools.textContent=t.tools;localStorage.setItem("seroLanguage",lang);
 }
-
-function showLanguages(){
-  changeScreen("language");
+function toggleTheme(){
+ document.body.classList.toggle("dark");
+ localStorage.setItem("seroTheme",document.body.classList.contains("dark")?"dark":"light");
 }
-
-function openChat(language){
-  selectedLanguage=language;
-  const text=translations[language];
-  document.getElementById("messageInput").placeholder=text.placeholder;
-  document.getElementById("messages").innerHTML=
-    '<div class="message bot">'+text.welcome+'</div>';
-  changeScreen("chat");
+function focusChat(){askInput.focus();scrollTo({top:0,behavior:"smooth"})}
+function startVoice(){
+ alert("SERO Voice tezliklə aktiv olacaq 🎙️");
 }
-
 function sendMessage(){
-  const input=document.getElementById("messageInput");
-  const message=input.value.trim();
-
-  if(!message) return;
-
-  const messages=document.getElementById("messages");
-  messages.innerHTML+='<div class="message user">'+message+'</div>';
-  input.value="";
-
-  setTimeout(()=>{
-    messages.innerHTML+='<div class="message bot">'+
-      translations[selectedLanguage].demo+
-      '</div>';
-    messages.scrollTop=messages.scrollHeight;
-  },500);
+ const text=askInput.value.trim();if(!text)return;
+ recent.textContent=text;askInput.value="";
 }
-
-document.getElementById("messageInput").addEventListener("keydown",e=>{
-  if(e.key==="Enter") sendMessage();
-});
+const savedLang=localStorage.getItem("seroLanguage")||"az";
+language.value=savedLang;changeLanguage(savedLang);
+if(localStorage.getItem("seroTheme")==="dark")document.body.classList.add("dark");
 </script>
-
 </body>
 </html>
-<!-- SERO Premium v2 coming soon -->
-<script>
-alert("SERO Premium yenilənməsi hazırlanır 🚀");
-</script>
