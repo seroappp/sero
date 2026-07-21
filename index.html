@@ -1,71 +1,274 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="az">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SERO AI</title>
 
 <style>
+*{box-sizing:border-box}
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#4F46E5,#7C3AED);
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-color:white;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#4338ca,#7c3aed);
+  color:white;
+  min-height:100vh;
 }
-
+.screen{
+  min-height:100vh;
+  display:none;
+  padding:24px;
+}
+.screen.active{
+  display:flex;
+}
+#welcome{
+  justify-content:center;
+  align-items:center;
+}
 .card{
-background:rgba(255,255,255,.12);
-backdrop-filter:blur(10px);
-padding:35px;
-border-radius:22px;
-text-align:center;
-width:320px;
-box-shadow:0 10px 30px rgba(0,0,0,.25);
+  width:100%;
+  max-width:390px;
+  padding:34px 24px;
+  text-align:center;
+  border-radius:28px;
+  background:rgba(255,255,255,.14);
+  backdrop-filter:blur(14px);
+  box-shadow:0 18px 45px rgba(0,0,0,.25);
 }
-
-h1{
-margin:0;
-font-size:36px;
+.logo{
+  font-size:42px;
+  font-weight:800;
+  margin-bottom:12px;
 }
-
-p{
-opacity:.9;
-margin:15px 0 25px;
+.subtitle{
+  font-size:18px;
+  opacity:.9;
+  margin-bottom:28px;
 }
-
-button{
-background:white;
-color:#4F46E5;
-border:none;
-padding:14px 30px;
-font-size:18px;
-border-radius:12px;
-font-weight:bold;
-cursor:pointer;
+.main-btn{
+  border:0;
+  border-radius:16px;
+  padding:15px 32px;
+  font-size:18px;
+  font-weight:bold;
+  background:white;
+  color:#5b21b6;
 }
-
-button:hover{
-transform:scale(1.05);
+#language{
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+.language-title{
+  font-size:30px;
+  font-weight:800;
+  margin-bottom:24px;
+  text-align:center;
+}
+.languages{
+  width:100%;
+  max-width:390px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.lang-btn{
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:18px;
+  padding:18px 10px;
+  background:rgba(255,255,255,.14);
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+}
+#chat{
+  flex-direction:column;
+  padding:0;
+  background:#f4f5f7;
+  color:#111827;
+}
+.header{
+  padding:17px 18px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid #e5e7eb;
+}
+.header-title{
+  font-size:21px;
+  font-weight:800;
+}
+.header button{
+  border:0;
+  background:#ede9fe;
+  padding:9px 12px;
+  border-radius:12px;
+}
+.messages{
+  flex:1;
+  padding:20px 14px 110px;
+  overflow:auto;
+}
+.message{
+  max-width:82%;
+  margin-bottom:12px;
+  padding:13px 15px;
+  border-radius:18px;
+  line-height:1.4;
+}
+.bot{
+  background:white;
+  border:1px solid #e5e7eb;
+}
+.user{
+  margin-left:auto;
+  background:#6d28d9;
+  color:white;
+}
+.composer{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:12px;
+  display:flex;
+  gap:8px;
+  background:white;
+  border-top:1px solid #e5e7eb;
+}
+.composer input{
+  flex:1;
+  padding:14px;
+  border:1px solid #d1d5db;
+  border-radius:16px;
+  font-size:16px;
+}
+.composer button{
+  border:0;
+  border-radius:16px;
+  padding:0 17px;
+  background:#6d28d9;
+  color:white;
+  font-size:20px;
 }
 </style>
-
 </head>
 
 <body>
 
-<div class="card">
-<h1>🤖 SERO AI</h1>
-<p>The next generation AI assistant</p>
+<section id="welcome" class="screen active">
+  <div class="card">
+    <div class="logo">🤖 SERO AI</div>
+    <div class="subtitle">Ağıllı köməkçiniz</div>
+    <button class="main-btn" onclick="showLanguages()">Başla</button>
+  </div>
+</section>
 
-<button onclick="alert('Welcome to SERO AI!')">
-Start
-</button>
+<section id="language" class="screen">
+  <div class="language-title">Dili seçin</div>
 
-</div>
+  <div class="languages">
+    <button class="lang-btn" onclick="openChat('az')">🇦🇿 Azərbaycan</button>
+    <button class="lang-btn" onclick="openChat('ru')">🇷🇺 Русский</button>
+    <button class="lang-btn" onclick="openChat('tr')">🇹🇷 Türkçe</button>
+    <button class="lang-btn" onclick="openChat('en')">🇬🇧 English</button>
+    <button class="lang-btn" onclick="openChat('uz')">🇺🇿 O‘zbekcha</button>
+    <button class="lang-btn" onclick="openChat('tg')">🇹🇯 Тоҷикӣ</button>
+  </div>
+</section>
+
+<section id="chat" class="screen">
+  <div class="header">
+    <div class="header-title">🤖 SERO AI</div>
+    <button onclick="showLanguages()">🌍 Dil</button>
+  </div>
+
+  <div id="messages" class="messages"></div>
+
+  <div class="composer">
+    <input id="messageInput" placeholder="Mesajınızı yazın...">
+    <button onclick="sendMessage()">➤</button>
+  </div>
+</section>
+
+<script>
+let selectedLanguage="az";
+
+const translations={
+  az:{
+    welcome:"Salam! Mən SERO AI-yam. Sizə necə kömək edim?",
+    placeholder:"Mesajınızı yazın...",
+    demo:"Bu hələ sınaq versiyasıdır. Həqiqi AI bağlantısını növbəti mərhələdə əlavə edəcəyik."
+  },
+  ru:{
+    welcome:"Здравствуйте! Я SERO AI. Чем могу помочь?",
+    placeholder:"Напишите сообщение...",
+    demo:"Это пока тестовая версия. Настоящий ИИ мы подключим на следующем этапе."
+  },
+  tr:{
+    welcome:"Merhaba! Ben SERO AI. Size nasıl yardımcı olabilirim?",
+    placeholder:"Mesajınızı yazın...",
+    demo:"Bu şimdilik deneme sürümüdür. Gerçek yapay zekâyı sonraki aşamada bağlayacağız."
+  },
+  en:{
+    welcome:"Hello! I am SERO AI. How can I help you?",
+    placeholder:"Write a message...",
+    demo:"This is currently a demo. We will connect the real AI in the next stage."
+  },
+  uz:{
+    welcome:"Salom! Men SERO AI. Sizga qanday yordam beray?",
+    placeholder:"Xabaringizni yozing...",
+    demo:"Bu hozircha sinov versiyasi. Haqiqiy AI keyingi bosqichda ulanadi."
+  },
+  tg:{
+    welcome:"Салом! Ман SERO AI ҳастам. Чӣ гуна кумак кунам?",
+    placeholder:"Паёми худро нависед...",
+    demo:"Ин ҳоло версияи санҷишӣ аст. AI-и воқеӣ дар марҳилаи баъдӣ пайваст мешавад."
+  }
+};
+
+function changeScreen(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function showLanguages(){
+  changeScreen("language");
+}
+
+function openChat(language){
+  selectedLanguage=language;
+  const text=translations[language];
+  document.getElementById("messageInput").placeholder=text.placeholder;
+  document.getElementById("messages").innerHTML=
+    '<div class="message bot">'+text.welcome+'</div>';
+  changeScreen("chat");
+}
+
+function sendMessage(){
+  const input=document.getElementById("messageInput");
+  const message=input.value.trim();
+
+  if(!message) return;
+
+  const messages=document.getElementById("messages");
+  messages.innerHTML+='<div class="message user">'+message+'</div>';
+  input.value="";
+
+  setTimeout(()=>{
+    messages.innerHTML+='<div class="message bot">'+
+      translations[selectedLanguage].demo+
+      '</div>';
+    messages.scrollTop=messages.scrollHeight;
+  },500);
+}
+
+document.getElementById("messageInput").addEventListener("keydown",e=>{
+  if(e.key==="Enter") sendMessage();
+});
+</script>
 
 </body>
 </html>
