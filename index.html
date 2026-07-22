@@ -3,246 +3,813 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#6d28d9">
+<meta name="theme-color" content="#080611">
 <title>SERO AI</title>
+
 <style>
 *{box-sizing:border-box}
 :root{
-  --bg:#f7f7fb;--card:#fff;--text:#17151f;--muted:#777181;
-  --purple:#6d28d9;--purple2:#9b5cff;--border:#ebe8f1;
+  --bg:#f5f3fa;
+  --card:#ffffff;
+  --card2:#faf8ff;
+  --text:#17131f;
+  --muted:#777180;
+  --border:#e8e2ef;
+  --purple:#7527ea;
+  --purple2:#b04cff;
+  --glow:rgba(117,39,234,.28);
 }
+
 body.dark{
-  --bg:#0e0d13;--card:#19171f;--text:#f7f4ff;--muted:#aaa3b4;
-  --border:#2a2732;
+  --bg:#07060d;
+  --card:#11101a;
+  --card2:#171421;
+  --text:#f8f5ff;
+  --muted:#aaa3b6;
+  --border:#282238;
+  --purple:#8a3cff;
+  --purple2:#c75cff;
+  --glow:rgba(151,63,255,.45);
 }
+
+html{scroll-behavior:smooth}
+
 body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  margin:0;
+  background:
+    radial-gradient(circle at 80px 100px,var(--glow),transparent 280px),
+    var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  transition:.3s;
+}
+
+button,input,select{font:inherit}
+
+.app{
+  max-width:760px;
+  margin:auto;
+  padding:18px 16px 120px;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-size:23px;
+  font-weight:900;
+}
+
+.logo{
+  width:46px;
+  height:46px;
+  border-radius:17px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:23px;
+  font-weight:900;
+  background:linear-gradient(135deg,#5c16cf,#b94fff);
+  box-shadow:0 12px 32px var(--glow);
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.language,.theme-btn,.profile{
+  height:43px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  border-radius:15px;
+}
+
+.language{padding:0 10px}
+
+.theme-btn{
+  width:54px;
+  font-size:20px;
+}
+
+.profile{
+  width:43px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  font-weight:900;
+  background:linear-gradient(135deg,#1a102a,#7527ea);
+  color:white;
+}
+
+.panda{
+  display:none;
+  font-size:25px;
+  animation:pandaIn .4s ease;
+}
+
+body.dark .profile-letter{display:none}
+body.dark .panda{display:block}
+
+@keyframes pandaIn{
+  from{transform:scale(.5) rotate(-15deg);opacity:0}
+  to{transform:scale(1) rotate(0);opacity:1}
+}
+
+.welcome{
+  padding:23px;
+  border:1px solid var(--border);
+  border-radius:25px;
+  background:
+    radial-gradient(circle at 90% 15%,rgba(150,60,255,.24),transparent 160px),
+    var(--card);
+  box-shadow:0 18px 55px rgba(30,10,60,.10);
+}
+
+.welcome h1{
+  margin:0 0 7px;
+  font-size:29px;
+  letter-spacing:-.7px;
+}
+
+.welcome p{
+  margin:0 0 19px;
+  color:var(--muted);
+}
+
+.askbox{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px 12px 11px 17px;
+  background:var(--card2);
+  border:1px solid var(--border);
+  border-radius:20px;
+}
+
+.askbox input{
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--text);
+  font-size:16px;
+}
+
+.ask-icon{
+  border:0;
+  background:none;
+  color:var(--purple);
+  font-size:20px;
+  padding:8px;
+}
+
+.send{
+  width:47px;
+  height:47px;
+  border:0;
+  border-radius:16px;
+  color:#fff;
+  font-size:21px;
+  background:linear-gradient(135deg,var(--purple),var(--purple2));
+  box-shadow:0 10px 25px var(--glow);
+}
+
+.quick{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  padding:13px 1px 2px;
+  scrollbar-width:none;
+}
+
+.quick::-webkit-scrollbar{display:none}
+
+.chip{
+  flex:none;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  padding:10px 13px;
+  border-radius:14px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.hero{
+  position:relative;
+  min-height:230px;
+  margin:18px 0 25px;
+  padding:25px;
+  overflow:hidden;
+  border:1px solid rgba(174,82,255,.42);
+  border-radius:27px;
+  color:#fff;
+  background:
+    radial-gradient(circle at 80% 35%,rgba(183,71,255,.52),transparent 165px),
+    linear-gradient(135deg,#190634,#451094 56%,#8022db);
+  box-shadow:0 22px 55px var(--glow);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:56%;
+}
+
+.hero h2{
+  margin:0 0 10px;
+  font-size:27px;
+}
+
+.hero p{
+  margin:0 0 20px;
+  color:#e8dcff;
+  line-height:1.45;
+}
+
+.hero button{
+  border:0;
+  border-radius:15px;
+  padding:13px 18px;
+  background:linear-gradient(135deg,#8a30ff,#ca54ff);
+  color:white;
+  font-weight:900;
+  box-shadow:0 10px 28px rgba(150,45,255,.42);
+}
+
+.robot{
+  position:absolute;
+  right:12px;
+  bottom:-5px;
+  width:43%;
+  min-width:155px;
+  aspect-ratio:1;
+  display:grid;
+  place-items:center;
+  font-size:97px;
+  filter:drop-shadow(0 0 25px #b45cff);
+  animation:float 3s ease-in-out infinite;
+}
+
+.robot:before{
+  content:"";
+  position:absolute;
+  width:90%;
+  height:90%;
+  border-radius:50%;
+  border:2px solid rgba(200,100,255,.6);
+  box-shadow:0 0 35px #9b39ff,inset 0 0 25px #7225d8;
+}
+
+@keyframes float{
+  50%{transform:translateY(-9px)}
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:24px 2px 13px;
+}
+
+.section-head h3{
+  margin:0;
+  font-size:20px;
+}
+
+.see-all{
+  border:0;
+  background:none;
+  color:var(--purple);
+  font-weight:800;
+}
+
+.tools{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.tool{
+  min-height:142px;
+  padding:17px;
+  text-align:left;
+  border:1px solid var(--border);
+  border-radius:21px;
+  background:var(--card);
+  color:var(--text);
+  transition:.2s;
+}
+
+.tool:active{transform:scale(.97)}
+
+.tool-icon{
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  margin-bottom:16px;
+  font-size:23px;
+  background:rgba(128,45,235,.11);
+  box-shadow:inset 0 0 18px rgba(130,45,230,.08);
+}
+
+.tool strong{
+  display:block;
+  margin-bottom:6px;
+  font-size:16px;
+}
+
+.tool small{
+  color:var(--muted);
+  line-height:1.4;
+}
+
+.voice-tool{
+  border-color:rgba(153,62,255,.58);
+  box-shadow:0 0 25px rgba(137,40,255,.16);
+}
+
+.double-section{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:13px;
+}
+
+.panel{
+  border:1px solid var(--border);
+  background:var(--card);
+  border-radius:21px;
+  padding:17px;
+}
+
+.panel-row{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:11px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.panel-row:last-child{border-bottom:0}
+
+.panel-row span:first-child{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:rgba(128,45,235,.11);
+}
+
+.panel-row div{flex:1}
+
+.panel-row strong{display:block}
+
+.panel-row small{color:var(--muted)}
+
+.star{color:#ffcb28}
+
+.pro-banner{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin-top:20px;
+  padding:18px;
+  border-radius:22px;
+  color:white;
+  background:linear-gradient(135deg,#24113e,#6d1cd1,#9728f2);
+  box-shadow:0 18px 45px var(--glow);
+}
+
+.gem{
+  width:50px;
+  height:50px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  font-size:26px;
+  background:#ffffff17;
+}
+
+.pro-banner div:nth-child(2){flex:1}
+
+.pro-banner strong{display:block}
+
+.pro-banner small{color:#e7dcf6}
+
+.pro-banner button{
+  border:0;
+  border-radius:14px;
+  padding:12px 14px;
+  color:#5d18b5;
+  background:#fff;
+  font-weight:900;
+}
+
+.nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:min(760px,100%);
+  height:86px;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  padding:7px 8px max(8px,env(safe-area-inset-bottom));
+  background:color-mix(in srgb,var(--card) 92%,transparent);
+  border-top:1px solid var(--border);
+  backdrop-filter:blur(20px);
+}
+
+.nav button{
+  border:0;
+  background:none;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.nav button span{
+  display:block;
+  margin-bottom:4px;
+  font-size:22px;
+}
+
+.nav .active{
+  color:var(--purple);
+  font-weight:900;
+}
+
+.nav .plus{
+  width:61px;
+  height:61px;
+  margin-top:-31px;
+  border-radius:21px;
+  color:white;
+  font-size:30px;
+  background:linear-gradient(135deg,#6b22dc,#b34fff);
+  border:2px solid rgba(255,255,255,.78);
+  box-shadow:0 12px 32px var(--glow);
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:105px;
+  z-index:50;
+  transform:translate(-50%,20px);
+  opacity:0;
+  pointer-events:none;
+  padding:12px 17px;
+  border-radius:15px;
+  background:#17121f;
+  color:white;
   transition:.25s;
 }
-button,input,select{font:inherit}
-.app{max-width:720px;margin:auto;padding:18px 16px 105px}
-.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}
-.brand{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:900}
-.logo{
-  width:42px;height:42px;border-radius:15px;display:grid;place-items:center;
-  color:white;background:linear-gradient(135deg,#5b21b6,#b76cff);
-  box-shadow:0 12px 30px #7c3aed45
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
 }
-.actions{display:flex;gap:8px;align-items:center}
-.icon-btn,.language{
-  border:1px solid var(--border);background:var(--card);color:var(--text);
-  min-height:42px;border-radius:14px;padding:0 12px
+
+@media(min-width:650px){
+  .tools{grid-template-columns:repeat(3,1fr)}
+  .double-section{grid-template-columns:1fr 1fr}
 }
-.avatar{
-  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
-  background:linear-gradient(135deg,#111,#6d28d9);color:white;font-weight:800
-}
-h1{font-size:29px;margin:0 0 8px;letter-spacing:-.7px}
-.subtitle{color:var(--muted);margin-bottom:20px}
-.askbox{
-  background:var(--card);border:1px solid var(--border);border-radius:24px;
-  padding:16px;box-shadow:0 15px 45px #261a4310;margin-bottom:14px
-}
-.askrow{display:flex;gap:10px}
-.askrow input{
-  min-width:0;flex:1;border:0;outline:0;background:transparent;
-  color:var(--text);font-size:16px
-}
-.send{
-  border:0;width:45px;height:45px;border-radius:15px;color:white;
-  background:linear-gradient(135deg,var(--purple),var(--purple2))
-}
-.attachments{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
-.chip{
-  border:1px solid var(--border);background:var(--bg);color:var(--text);
-  border-radius:13px;padding:9px 11px;font-size:13px
-}
-.voice{
-  position:relative;overflow:hidden;padding:22px;border-radius:27px;color:white;
-  background:linear-gradient(135deg,#351376,#6d28d9 58%,#b15cff);
-  box-shadow:0 20px 45px #6d28d940;margin:18px 0 25px
-}
-.voice:after{
-  content:"";position:absolute;width:190px;height:190px;border-radius:50%;
-  background:#fff1;right:-65px;top:-70px
-}
-.voice-top{display:flex;align-items:center;gap:15px;position:relative;z-index:1}
-.mic{
-  width:68px;height:68px;border-radius:22px;background:#ffffff20;
-  display:grid;place-items:center;font-size:32px;animation:pulse 2s infinite
-}
-@keyframes pulse{50%{transform:scale(1.07);box-shadow:0 0 0 12px #ffffff0b}}
-.voice h2{margin:0 0 6px;font-size:23px}
-.voice p{margin:0;color:#eee7ff}
-.voice-buttons{display:flex;gap:10px;margin-top:18px;position:relative;z-index:1}
-.primary,.secondary{
-  border:0;border-radius:14px;padding:12px 15px;font-weight:700
-}
-.primary{background:white;color:#54209f}
-.secondary{background:#ffffff18;color:white;border:1px solid #ffffff28}
-.section-head{display:flex;justify-content:space-between;align-items:center;margin:24px 2px 13px}
-.section-head h3{margin:0;font-size:19px}
-.link{border:0;background:none;color:var(--purple);font-weight:700}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.tool{
-  text-align:left;border:1px solid var(--border);background:var(--card);
-  color:var(--text);border-radius:20px;padding:16px;min-height:126px
-}
-.tool-icon{
-  width:43px;height:43px;border-radius:14px;display:grid;place-items:center;
-  font-size:21px;background:#7c3aed14;margin-bottom:16px
-}
-.tool strong{display:block;margin-bottom:5px}
-.tool small{color:var(--muted);line-height:1.35}
-.pro-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.plan{
-  border:1px solid var(--border);background:var(--card);border-radius:21px;padding:17px
-}
-.plan.pro{background:linear-gradient(145deg,#1e1237,#6d28d9);color:white}
-.plan p{color:var(--muted);font-size:13px;min-height:38px}
-.plan.pro p{color:#ddd3f4}
-.plan button{
-  width:100%;border:0;border-radius:13px;padding:11px;font-weight:800;
-  background:#eee8ff;color:#5b21b6
-}
-.empty{
-  background:var(--card);border:1px dashed var(--border);border-radius:20px;
-  color:var(--muted);padding:22px;text-align:center
-}
-.nav{
-  position:fixed;left:50%;bottom:0;transform:translateX(-50%);
-  width:min(720px,100%);height:82px;background:color-mix(in srgb,var(--card) 92%,transparent);
-  backdrop-filter:blur(18px);border-top:1px solid var(--border);
-  display:flex;justify-content:space-around;align-items:center;padding-bottom:8px;z-index:10
-}
-.nav button{border:0;background:none;color:var(--muted);font-size:12px}
-.nav button span{display:block;font-size:21px;margin-bottom:4px}
-.nav .active{color:var(--purple);font-weight:800}
-.nav .voice-nav{
-  width:58px;height:58px;border-radius:20px;color:white;margin-top:-27px;
-  background:linear-gradient(135deg,#5b21b6,#a855f7);
-  box-shadow:0 10px 28px #6d28d950;font-size:25px
-}
-@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
+
 <body>
 <main class="app">
-  <header class="topbar">
-    <div class="brand"><div class="logo">S</div>SERO AI</div>
-    <div class="actions">
-      <select id="language" class="language" onchange="changeLanguage(this.value)">
-        <option value="az">AZ</option>
-        <option value="ru">RU</option>
-        <option value="tr">TR</option>
-        <option value="en">EN</option>
-        <option value="uz">UZ</option>
-        <option value="tg">TG</option>
-        <option value="ky">KY</option>
-      </select>
-      <button class="icon-btn" onclick="toggleTheme()">◐</button>
-      <div class="avatar">S</div>
-    </div>
-  </header>
 
-  <h1 id="hello">Salam, Sədi!</h1>
-  <div id="subtitle" class="subtitle">Bu gün sizə necə kömək edə bilərəm?</div>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">S</div>
+    <span>SERO <b style="color:var(--purple2)">AI</b></span>
+  </div>
 
-  <section class="askbox">
-    <div class="askrow">
-      <input id="askInput" placeholder="SERO-dan istədiyini soruş...">
-      <button class="send" onclick="sendMessage()">➤</button>
-    </div>
-    <div class="attachments">
-      <button class="chip">📷 Kamera</button>
-      <button class="chip">🖼️ Qalereya</button>
-      <button class="chip">📄 PDF</button>
-      <button class="chip">🎤 Mikrofon</button>
-    </div>
-  </section>
+  <div class="top-actions">
+    <select id="language" class="language">
+      <option value="az">🇦🇿 AZ</option>
+      <option value="ru">🇷🇺 RU</option>
+      <option value="tr">🇹🇷 TR</option>
+      <option value="en">🇬🇧 EN</option>
+      <option value="uz">🇺🇿 UZ</option>
+      <option value="tg">🇹🇯 TG</option>
+      <option value="ky">🇰🇬 KY</option>
+    </select>
 
-  <section class="voice">
-    <div class="voice-top">
-      <div class="mic">🎙️</div>
+    <button class="theme-btn" id="themeBtn">☀️</button>
+
+    <div class="profile">
+      <span class="profile-letter">S</span>
+      <span class="panda">🐼</span>
+    </div>
+  </div>
+</header>
+
+<section class="welcome">
+  <h1 id="greeting">Salam, Sədi! 👋</h1>
+  <p id="subtitle">Bu gün sizə necə kömək edə bilərəm?</p>
+
+  <div class="askbox">
+    <input id="askInput" placeholder="SERO-dan istədiyini soruş...">
+    <button class="ask-icon" onclick="showToast('Mikrofon hazırlanır')">🎙️</button>
+    <button class="ask-icon" onclick="showToast('Kamera hazırlanır')">📷</button>
+    <button class="send" onclick="sendMessage()">➤</button>
+  </div>
+</section>
+
+<div class="quick">
+  <button class="chip">✨ Ağıllı cavab</button>
+  <button class="chip">🖼️ Şəkil analizi</button>
+  <button class="chip" onclick="startVoice()">🎙️ Səsli danışıq</button>
+  <button class="chip">📄 PDF analizi</button>
+</div>
+
+<section class="hero">
+  <div class="hero-content">
+    <h2>SERO ilə hər şey daha asandır!</h2>
+    <p>Sual ver, sənəd göndər, danış — SERO cavablasın.</p>
+    <button onclick="focusChat()">AI Çatı aç →</button>
+  </div>
+  <div class="robot">🤖</div>
+</section>
+
+<div class="section-head">
+  <h3>✨ Əsas alətlər</h3>
+  <button class="see-all">Hamısına bax ›</button>
+</div>
+
+<section class="tools">
+  <button class="tool">
+    <div class="tool-icon">💬</div>
+    <strong>AI Çat</strong>
+    <small>Ağıllı söhbət və cavablar</small>
+  </button>
+
+  <button class="tool">
+    <div class="tool-icon">🌄</div>
+    <strong>Şəkil analizi</strong>
+    <small>Şəkli analiz et və izah al</small>
+  </button>
+
+  <button class="tool">
+    <div class="tool-icon">📕</div>
+    <strong>PDF və sənədlər</strong>
+    <small>Xülasə və sənəd analizi</small>
+  </button>
+
+  <button class="tool">
+    <div class="tool-icon">🎓</div>
+    <strong>Məktəb köməkçisi</strong>
+    <small>Dərs, izah və tapşırıqlar</small>
+  </button>
+
+  <button class="tool">
+    <div class="tool-icon">🌐</div>
+    <strong>Tərcüməçi</strong>
+    <small>Mətn və səs tərcüməsi</small>
+  </button>
+
+  <button class="tool">
+    <div class="tool-icon">💚</div>
+    <strong>Sağlamlıq</strong>
+    <small>Ümumi sağlamlıq məlumatları</small>
+  </button>
+
+  <button class="tool">
+    <div class="tool-icon">⚡</div>
+    <strong>Sürətli həll</strong>
+    <small>Bir toxunuşla cavab al</small>
+  </button>
+
+  <button class="tool voice-tool" onclick="startVoice()">
+    <div class="tool-icon">🎙️</div>
+    <strong>Səsli danışıq</strong>
+    <small>Canlı səsli söhbət et</small>
+  </button>
+
+  <button class="tool">
+    <div class="tool-icon">📄</div>
+    <strong>Sənəd yarat</strong>
+    <small>Mətn, CV və məktub yaz</small>
+  </button>
+
+  <button class="tool">
+    <div class="tool-icon">💻</div>
+    <strong>Kod köməkçisi</strong>
+    <small>Kod yaz, izah et və düzəlt</small>
+  </button>
+</section>
+
+<div class="section-head">
+  <h3>Son söhbətlər</h3>
+  <button class="see-all">Hamısına bax ›</button>
+</div>
+
+<section class="double-section">
+  <div class="panel" id="recentPanel">
+    <div class="panel-row">
+      <span>📘</span>
       <div>
-        <h2 id="voiceTitle">SERO ilə danış</h2>
-        <p id="voiceText">Sual ver, cavab al və təbii söhbət et.</p>
+        <strong>Riyaziyyat sualının izahı</strong>
+        <small>Bu gün, 09:30</small>
       </div>
     </div>
-    <div class="voice-buttons">
-      <button id="startVoice" class="primary" onclick="startVoice()">Danışmağa başla</button>
-      <button class="secondary" onclick="focusChat()">Mətnlə davam et</button>
+    <div class="panel-row">
+      <span>🖼️</span>
+      <div>
+        <strong>Şəklin analizi və mətni</strong>
+        <small>Dünən</small>
+      </div>
     </div>
-  </section>
+    <div class="panel-row">
+      <span>📕</span>
+      <div>
+        <strong>PDF sənədin xülasəsi</strong>
+        <small>2 gün əvvəl</small>
+      </div>
+    </div>
+  </div>
 
-  <div class="section-head"><h3 id="mainTools">Əsas alətlər</h3><button class="link">Hamısını gör</button></div>
-  <section class="grid">
-    <button class="tool"><div class="tool-icon">💬</div><strong>AI Çat</strong><small>SERO ilə ağıllı söhbət et</small></button>
-    <button class="tool"><div class="tool-icon">🎓</div><strong>Məktəb köməkçisi</strong><small>Dərsləri öyrən və tapşırıqları həll et</small></button>
-    <button class="tool"><div class="tool-icon">🖼️</div><strong>Şəkil yarat</strong><small>Mətndən unikal şəkillər hazırla</small></button>
-    <button class="tool"><div class="tool-icon">📄</div><strong>PDF analiz</strong><small>Sənədləri oxu və sual ver</small></button>
-    <button class="tool"><div class="tool-icon">🌍</div><strong>Tərcüməçi</strong><small>Mətnləri anında tərcümə et</small></button>
-    <button class="tool"><div class="tool-icon">📷</div><strong>Şəkil analizi</strong><small>Şəkildə olanları SERO izah etsin</small></button>
-  </section>
+  <div class="panel">
+    <div class="panel-row">
+      <span>🔖</span>
+      <div><strong>Vacib qeydlərim</strong></div>
+      <b class="star">★</b>
+    </div>
+    <div class="panel-row">
+      <span>🎓</span>
+      <div><strong>Məktəb materialları</strong></div>
+      <b class="star">★</b>
+    </div>
+    <div class="panel-row">
+      <span>💚</span>
+      <div><strong>Sağlamlıq qeydləri</strong></div>
+      <b class="star">★</b>
+    </div>
+  </div>
+</section>
 
-  <div class="section-head"><h3>Bütün alətlər</h3><button class="link">Hamısını gör</button></div>
-  <section class="grid">
-    <button class="tool"><div class="tool-icon">🩺</div><strong>AI Sağlamlıq</strong><small>Ümumi sağlamlıq məlumatları</small></button>
-    <button class="tool"><div class="tool-icon">⚖️</div><strong>Hüquq</strong><small>Hüquqi məlumat və sənədlər</small></button>
-    <button class="tool"><div class="tool-icon">💼</div><strong>İş və CV</strong><small>CV və müraciət məktubları</small></button>
-    <button class="tool"><div class="tool-icon">💰</div><strong>Maliyyə</strong><small>Büdcə və maliyyə köməkçisi</small></button>
-    <button class="tool"><div class="tool-icon">✈️</div><strong>Səyahət</strong><small>Səyahət planı və ideyalar</small></button>
-    <button class="tool"><div class="tool-icon">🛍️</div><strong>SERO Market</strong><small>AI xidmətləri və imkanları</small></button>
-  </section>
+<section class="pro-banner">
+  <div class="gem">💎</div>
+  <div>
+    <strong>SERO Pro ilə limitsiz imkanlar!</strong>
+    <small>Limitsiz suallar, daha sürətli cavablar və eksklüziv alətlər</small>
+  </div>
+  <button onclick="showToast('SERO Pro tezliklə')">Pro-ya keç</button>
+</section>
 
-  <div class="section-head"><h3>Son söhbətlər</h3><button class="link">Hamısını gör</button></div>
-  <div id="recent" class="empty">Hələ söhbət yoxdur</div>
-
-  <div class="section-head"><h3>SERO planları</h3></div>
-  <section class="pro-grid">
-    <div class="plan"><strong>SERO Plus</strong><p>Sürətli cavablar və daha çox limit</p><button>Yüksəlt</button></div>
-    <div class="plan pro"><strong>SERO Pro</strong><p>Bütün funksiyalar və prioritet dəstək</p><button>Pro-ya keç</button></div>
-  </section>
 </main>
 
 <nav class="nav">
   <button class="active"><span>⌂</span>Ana səhifə</button>
   <button><span>💬</span>Söhbətlər</button>
-  <button class="voice-nav" onclick="startVoice()">🎙️</button>
+  <button class="plus" onclick="focusChat()">＋</button>
   <button><span>▦</span>Alətlər</button>
-  <button><span>◉</span>Profil</button>
+  <button><span>◯</span>Profil</button>
 </nav>
 
+<div id="toast" class="toast"></div>
 <script>
-const translations={
- az:{hello:"Salam, Sədi!",subtitle:"Bu gün sizə necə kömək edə bilərəm?",ask:"SERO-dan istədiyini soruş...",voiceTitle:"SERO ilə danış",voiceText:"Sual ver, cavab al və təbii söhbət et.",start:"Danışmağa başla",tools:"Əsas alətlər"},
- ru:{hello:"Привет, Седи!",subtitle:"Чем я могу помочь вам сегодня?",ask:"Спросите SERO о чём угодно...",voiceTitle:"Поговорите с SERO",voiceText:"Задавайте вопросы и общайтесь естественно.",start:"Начать разговор",tools:"Основные инструменты"},
- tr:{hello:"Merhaba, Sədi!",subtitle:"Bugün size nasıl yardımcı olabilirim?",ask:"SERO'ya istediğini sor...",voiceTitle:"SERO ile konuş",voiceText:"Sor, cevap al ve doğal sohbet et.",start:"Konuşmaya başla",tools:"Ana araçlar"},
- en:{hello:"Hello, Sədi!",subtitle:"How can I help you today?",ask:"Ask SERO anything...",voiceTitle:"Talk to SERO",voiceText:"Ask questions and have a natural conversation.",start:"Start talking",tools:"Main tools"}
+const $ = id => document.getElementById(id);
+
+const translations = {
+  az: {
+    greeting: "Salam, Sədi! 👋",
+    subtitle: "Bu gün sizə necə kömək edə bilərəm?",
+    placeholder: "SERO-dan istədiyini soruş..."
+  },
+  ru: {
+    greeting: "Привет, Седи! 👋",
+    subtitle: "Чем я могу помочь вам сегодня?",
+    placeholder: "Спросите SERO о чём угодно..."
+  },
+  tr: {
+    greeting: "Merhaba, Sədi! 👋",
+    subtitle: "Bugün size nasıl yardımcı olabilirim?",
+    placeholder: "SERO'ya istediğini sor..."
+  },
+  en: {
+    greeting: "Hello, Sədi! 👋",
+    subtitle: "How can I help you today?",
+    placeholder: "Ask SERO anything..."
+  },
+  uz: {
+    greeting: "Salom, Sədi! 👋",
+    subtitle: "Bugun sizga qanday yordam beraman?",
+    placeholder: "SERO’dan istalgan narsani so‘rang..."
+  },
+  tg: {
+    greeting: "Салом, Сәди! 👋",
+    subtitle: "Имрӯз чӣ гуна кӯмак расонам?",
+    placeholder: "Аз SERO ҳар чизро пурсед..."
+  },
+  ky: {
+    greeting: "Салам, Сәди! 👋",
+    subtitle: "Бүгүн сизге кантип жардам берем?",
+    placeholder: "SERO'дон каалаганыңызды сураңыз..."
+  }
 };
-function changeLanguage(lang){
- const t=translations[lang]||translations.az;
- hello.textContent=t.hello;subtitle.textContent=t.subtitle;
- askInput.placeholder=t.ask;voiceTitle.textContent=t.voiceTitle;
- voiceText.textContent=t.voiceText;startVoice.textContent=t.start;
- mainTools.textContent=t.tools;localStorage.setItem("seroLanguage",lang);
+
+function showToast(message) {
+  const toast = $("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2200);
 }
-function toggleTheme(){
- document.body.classList.toggle("dark");
- localStorage.setItem("seroTheme",document.body.classList.contains("dark")?"dark":"light");
+
+function setLanguage(lang) {
+  const t = translations[lang] || translations.az;
+  $("greeting").textContent = t.greeting;
+  $("subtitle").textContent = t.subtitle;
+  $("askInput").placeholder = t.placeholder;
+  localStorage.setItem("seroLanguage", lang);
 }
-function focusChat(){askInput.focus();scrollTo({top:0,behavior:"smooth"})}
-function startVoice(){
- alert("SERO Voice tezliklə aktiv olacaq 🎙️");
+
+function toggleTheme() {
+  const dark = document.body.classList.toggle("dark");
+  $("themeBtn").textContent = dark ? "🌙" : "☀️";
+  localStorage.setItem("seroTheme", dark ? "dark" : "light");
+
+  if (dark) {
+    showToast("🐼 Panda gecə rejimi aktivdir");
+  } else {
+    showToast("☀️ Gündüz rejimi aktivdir");
+  }
 }
-function sendMessage(){
- const text=askInput.value.trim();if(!text)return;
- recent.textContent=text;askInput.value="";
+
+function focusChat() {
+  $("askInput").focus();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
-const savedLang=localStorage.getItem("seroLanguage")||"az";
-language.value=savedLang;changeLanguage(savedLang);
-if(localStorage.getItem("seroTheme")==="dark")document.body.classList.add("dark");
+
+function startVoice() {
+  showToast("🎙️ SERO Voice hazırlanır");
+}
+
+function sendMessage() {
+  const input = $("askInput");
+  const text = input.value.trim();
+
+  if (!text) {
+    showToast("Əvvəlcə sualınızı yazın");
+    return;
+  }
+
+  const panel = $("recentPanel");
+  const row = document.createElement("div");
+  row.className = "panel-row";
+  row.innerHTML = `
+    <span>💬</span>
+    <div>
+      <strong>${text.replace(/[<>]/g, "")}</strong>
+      <small>İndi</small>
+    </div>
+  `;
+
+  panel.prepend(row);
+  input.value = "";
+  showToast("Sual söhbətlərə əlavə edildi");
+}
+
+$("themeBtn").addEventListener("click", toggleTheme);
+
+$("language").addEventListener("change", event => {
+  setLanguage(event.target.value);
+});
+
+$("askInput").addEventListener("keydown", event => {
+  if (event.key === "Enter") sendMessage();
+});
+
+const savedLanguage = localStorage.getItem("seroLanguage") || "az";
+$("language").value = savedLanguage;
+setLanguage(savedLanguage);
+
+if (localStorage.getItem("seroTheme") === "dark") {
+  document.body.classList.add("dark");
+  $("themeBtn").textContent = "🌙";
+}
 </script>
 </body>
 </html>
